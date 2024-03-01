@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Players</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Ник</th>
+          <th>Email</th>
+          <th>Зарегистрирован</th>
+          <th>Статус</th>
+        </tr>
+      </thead>
+      <tbody id="players"></tbody>
+    </table>
+  </body>
+  <script>
+    (async () => {
+      const playersContainer = document.getElementById('players');
+      const players = await fetch('http://127.0.0.1:3000/getPlayers').then(
+        (response) => response.json()
+      );
+      players
+        .filter((player) => player.status === 'On')
+        .sort((player) => player.registered)
+        .forEach((player) => {
+          const row = document.createElement('tr');
+          const nickname = document.createElement('td');
+          const email = document.createElement('td');
+          const registered = document.createElement('td');
+          const status = document.createElement('td');
+
+          nickname.textContent = player.nickname;
+          email.textContent = player.email;
+          registered.textContent = `${new Date(
+            player.registered * 1000
+          ).toLocaleDateString('ru-RU')} ${new Date(player.registered * 1000)
+            .toLocaleTimeString('ru-RU')
+            .slice(0, 5)}`;
+          status.textContent = player.status;
+
+          row.append(nickname, email, registered, status);
+          playersContainer.append(row);
+        });
+    })();
+  </script>
+</html>
