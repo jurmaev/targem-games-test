@@ -1,7 +1,8 @@
-# Awesome Project Build with TypeORM
+# Targem Games test task
 
-Steps to run this project:
+Запуск проекта:
 
-1. Run `npm i` command
-2. Setup database settings inside `data-source.ts` file
-3. Run `npm start` command
+1. `npm i`
+2. Настроить базу данных в `data-source.ts`
+3. Запустить сервер `npm start`
+4. Таблица выводится в файл `index.html`
